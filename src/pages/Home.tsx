@@ -1,7 +1,10 @@
 import PostDisplay from "../components/display/PostDisplay";
 import PostForm from "../components/forms/PostForm";
+import { useAuth } from "../hooks/useAuth";
 
 function Home() {
+  const auth = useAuth();
+
   const posts_list = [
     {
       id: 1,
@@ -36,6 +39,10 @@ function Home() {
   ];
   return (
     <div className="mt-4">
+      <div>
+        <p>Token: </p>
+        <button onClick={() => {}}>Set Token</button>
+      </div>
       <PostForm></PostForm>
       <div className="mt-4 max-w-xl m-auto">
         <ul>
