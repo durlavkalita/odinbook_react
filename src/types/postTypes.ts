@@ -1,8 +1,11 @@
-export type Post = {
-  id: number;
-  author: String;
+import { UserType } from "./userTypes";
+import { CommentType } from "./commentTypes";
+
+export type PostType = {
+  _id: number;
+  author: UserType;
   content: string;
   created_at: Date;
-  likes: number;
-  comments: Comment[];
+  liked_by: { _id: string }[];
+  comments: CommentType[];
 };

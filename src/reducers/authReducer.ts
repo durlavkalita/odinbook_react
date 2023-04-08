@@ -6,6 +6,7 @@ export const authReducer = (
 ): AuthState => {
   switch (action.type) {
     case "LOGIN_SUCCESS":
+      console.log("login success");
       return {
         isAuthenticated: true,
         token: action.payload.token,
@@ -13,6 +14,8 @@ export const authReducer = (
         error: null,
       };
     case "LOGIN_FAILURE":
+      console.log("login failed");
+
       return {
         isAuthenticated: false,
         token: null,

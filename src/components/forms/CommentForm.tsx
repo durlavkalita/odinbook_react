@@ -20,29 +20,18 @@ const CommentForm = ({ onSubmit }: CommentFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex flex-col mb-4">
-        <label
-          htmlFor="comment"
-          className="mb-2 font-bold text-lg text-gray-900"
-        >
-          Comment
-        </label>
-        <textarea
-          id="comment"
-          name="comment"
-          className="border border-gray-500 py-2 px-3 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-600"
-          rows={5}
-          value={comment}
-          onChange={handleCommentChange}
-        ></textarea>
-      </div>
-
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <textarea
+        className="p-2 border-2 border-gray-400 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        placeholder="Write a comment..."
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="px-4 py-2 bg-indigo-500 text-white font-bold rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
-        Submit
+        Post Comment
       </button>
     </form>
   );

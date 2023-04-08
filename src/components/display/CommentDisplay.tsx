@@ -1,15 +1,17 @@
 import React from "react";
-import { Comment } from "../../utils/types/types";
+import { CommentType } from "../../types/commentTypes";
 
 interface Props {
-  comment: Comment;
+  comment: CommentType;
 }
 
 const CommentDisplay = ({ comment }: Props) => {
   return (
     <div className="bg-gray-100 p-2">
-      <div key={comment.id} className="mb-2">
-        <span className="font-bold mr-2">{comment.author}</span>
+      <div key={comment._id} className="mb-2">
+        <span className="font-bold mr-2">
+          {comment.author.firstName + " " + comment.author.lastName}
+        </span>
         <span className="text-gray-500 text-sm">
           {comment.created_at.toString()}
         </span>

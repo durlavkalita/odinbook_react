@@ -1,33 +1,44 @@
 import React, { useState } from "react";
-
+import { useAuth } from "../../hooks/useAuth";
+import axios from "axios";
+import { env_api_url } from "../../services/getEnvVar";
 function PostForm() {
   const [content, setContent] = useState("");
+  const { state } = useAuth();
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    // Submit the form data to the server...
-    const post = { content };
-    console.log(post);
-    // Clear the form fields after submission
-    setContent("");
-  }
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${env_api_url}/api/posts`,
+        { content },
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      setContent("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-      <div className="mb-4">
-        <textarea
-          id="content"
-          value={content}
-          onChange={(event) => setContent(event.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          placeholder="What's on your mind?"
-        />
-      </div>
+    <form onSubmit={handleSubmit} className="p-4 border rounded-lg mb-4">
+      <h2 className="text-lg font-medium mb-2">Create Post</h2>
+      <textarea
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="What's on your mind?"
+        className="border rounded-lg p-2 w-full mb-2"
+        required
+      />
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 text-white px-4 py-2 rounded"
       >
-        Create Post
+        Submit
       </button>
     </form>
   );

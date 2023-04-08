@@ -1,7 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { logoutService } from "../services/authServices";
 
 const Navbar = () => {
+  const { state, dispatch } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logoutService();
+    dispatch({ type: "LOGOUT_SUCCESS" });
+    navigate("/login");
+  };
   return (
     <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -23,6 +31,16 @@ const Navbar = () => {
           >
             Friends
           </Link>
+          {state.isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+            >
+              Logout
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </nav>

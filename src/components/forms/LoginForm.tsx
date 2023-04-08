@@ -1,30 +1,40 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import loginService from "../../services/auth/login";
+import { loginService } from "../../services/authServices";
+import { useAuth } from "../../hooks/useAuth";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { dispatch } = useAuth();
 
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
+  const handleLogin = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     try {
-      const user = await loginService.login({
+      const response = await loginService({
         email,
         password,
       });
+      const token = response.data.token;
+      const user = response.data.user;
 
-      window.localStorage.setItem("odinbook_logged_user", JSON.stringify(user));
+      if (response.status == 200) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: { token, user } });
+        window.localStorage.setItem("odinbook_user", JSON.stringify(user));
+        window.localStorage.setItem("odinbook_token", token);
+      } else {
+        dispatch({ type: "LOGIN_FAILURE", payload: "error" });
+      }
     } catch (error) {
-      console.log(error);
+      dispatch({ type: "LOGIN_FAILURE", payload: "error" });
     }
     navigate("/");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Register</h1>
+    <form onSubmit={handleLogin} className="max-w-md mx-auto">
+      <h1 className="text-3xl font-bold mb-4">Login</h1>
       <div className="mb-4">
         <label className="block mb-2 font-bold text-gray-700" htmlFor="email">
           Email:
