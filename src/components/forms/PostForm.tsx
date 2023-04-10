@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
 import { env_api_url } from "../../services/getEnvVar";
+import { useNavigate } from "react-router-dom";
 function PostForm() {
   const [content, setContent] = useState("");
   const { state } = useAuth();
-
+  const navigate = useNavigate();
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -18,10 +19,12 @@ function PostForm() {
           },
         }
       );
+      // console.log(response);
       setContent("");
     } catch (error) {
       console.error(error);
     }
+    navigate("/");
   };
 
   return (

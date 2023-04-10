@@ -5,6 +5,7 @@ import { env_api_url } from "../services/getEnvVar";
 import { useAuth } from "../hooks/useAuth";
 import { PostType } from "../types/postTypes";
 import PostDisplay from "../components/display/PostDisplay";
+import Button from "../components/utility/Button";
 
 type User = UserType & {
   friends: string[];
@@ -13,8 +14,35 @@ type User = UserType & {
 };
 
 const Profile = () => {
+  const [showUpdateDPForm, setShowUpdateDPForm] = useState(false);
+  const [newDP, setNewDP] = useState("");
   const [user, setUser] = useState<User>();
   const { state } = useAuth();
+
+  const handleUpdateDP = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const data = { profile_pic: newDP };
+    try {
+      const response = await fetch(
+        `${env_api_url}/api/users/${state.user?.id}/update`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      // console.log(response.json());
+    } catch (error) {
+      console.error(error);
+    }
+
+    setNewDP("");
+    setShowUpdateDPForm(false);
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -49,6 +77,35 @@ const Profile = () => {
             </h2>
             <p className="text-gray-700">@johndoe</p>
           </div>
+        </div>
+        <div>
+          {showUpdateDPForm ? (
+            <div className="flex">
+              <form onSubmit={handleUpdateDP}>
+                <input
+                  type="text"
+                  placeholder="add picture url"
+                  value={newDP}
+                  onChange={(e) => setNewDP(e.target.value)}
+                />
+                <Button>Submit</Button>
+              </form>
+              <Button
+                className="mx-2"
+                onClick={() => setShowUpdateDPForm(!showUpdateDPForm)}
+              >
+                Cancel
+              </Button>
+            </div>
+          ) : (
+            <Button
+              onClick={() => {
+                setShowUpdateDPForm(!showUpdateDPForm);
+              }}
+            >
+              Update Profile Photo
+            </Button>
+          )}
         </div>
       </div>
       <div className="border rounded-lg p-4">
