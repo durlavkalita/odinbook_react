@@ -16,13 +16,19 @@ function LoginForm() {
         email,
         password,
       });
-      const token = response.data.token;
-      const user = response.data.user;
 
       if (response.status == 200) {
+        const token = response.data.token;
+        const user = response.data.user;
+        const tokenExpiryDuration = 86400000;
+        const expiryTime = new Date().getTime() + tokenExpiryDuration;
         dispatch({ type: "LOGIN_SUCCESS", payload: { token, user } });
         window.localStorage.setItem("odinbook_user", JSON.stringify(user));
         window.localStorage.setItem("odinbook_token", token);
+        window.localStorage.setItem(
+          "odinbook_expiryTime",
+          expiryTime.toString()
+        );
       } else {
         dispatch({ type: "LOGIN_FAILURE", payload: "error" });
       }

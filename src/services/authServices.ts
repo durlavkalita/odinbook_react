@@ -12,4 +12,5 @@ export const loginService = async (credentials: {
 export const logoutService = () => {
   localStorage.removeItem("odinbook_user");
   localStorage.removeItem("odinbook_token");
+  localStorage.removeItem("odinbook_expiryTime");
 };
