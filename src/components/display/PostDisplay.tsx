@@ -13,15 +13,14 @@ interface Props {
 const PostDisplay = ({ post }: Props) => {
   const { state } = useAuth();
   const isLiked = post.liked_by.some((item) => item._id === state.user?.id);
-  // const headers = { Authorization: `Bearer ${state.token}` };
 
   const [likedByUser, setLikedByUser] = useState(isLiked);
   const [showComments, setShowComments] = useState(false);
+
   const handleShowComments = () => {
     setShowComments(!showComments);
   };
-  const handleLike = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const handleLike = async () => {
     try {
       const response = await fetch(
         `${env_api_url}/api/posts/${post._id}/toggle_like`,
@@ -32,7 +31,6 @@ const PostDisplay = ({ post }: Props) => {
           },
         }
       );
-      console.log(response.json());
 
       setLikedByUser(!likedByUser);
     } catch (error) {
@@ -72,23 +70,24 @@ const PostDisplay = ({ post }: Props) => {
       </div>
       <div className="mb-4">{post.content}</div>
       <div className="grid grid-cols-3">
-        <form
-          onSubmit={handleLike}
-          className={`flex items-center rounded-md  ${
-            likedByUser ? "bg-blue-500" : "bg-gray-100"
-          }`}
+        <button
+          onClick={handleLike}
+          className={`flex items-center rounded-md justify-center ${
+            isLiked ? "bg-blue-300" : ""
+          } `}
         >
-          <button className={`flex items-center rounded-md`}>
-            <span className="p-1">
-              {post.liked_by ? post.liked_by.length : 0}Like
-            </span>
-          </button>
-        </form>
+          <span className="p-1">
+            {post.liked_by ? post.liked_by.length : 0} Like
+          </span>
+        </button>
 
-        <button onClick={handleShowComments} className="flex items-center">
+        <button
+          onClick={handleShowComments}
+          className="flex items-center justify-center"
+        >
           <span className="text-gray-500">Comments</span>
         </button>
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
           <span className="text-gray-500">Share</span>
         </div>
       </div>
