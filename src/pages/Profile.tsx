@@ -66,11 +66,31 @@ const Profile = () => {
     <div className="max-w-5xl mx-auto px-4">
       <div className="bg-white rounded-lg shadow-md mb-8 p-8">
         <div className="flex flex-col sm:flex-row items-center">
-          <img
-            className="w-32 h-32 rounded-full object-cover mr-8 mb-4 sm:mb-0 border-2 border"
-            src={user?.profile_pic}
-            alt="Profile"
-          />
+          {user?.profile_pic ? (
+            <img
+              className="w-32 h-32 rounded-full object-cover mr-8 mb-4 sm:mb-0 border-2 border"
+              src={user?.profile_pic}
+              alt="Profile"
+            />
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              stroke="currentColor"
+              strokeWidth="0"
+              className="w-8 h-8 text-gray-600"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M7 21v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"
+              />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          )}
+
           <div className="flex flex-col">
             <h2 className="font-bold text-xl mb-1">
               {user?.firstName} {user?.lastName}

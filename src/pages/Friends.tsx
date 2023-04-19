@@ -7,12 +7,23 @@ import { env_api_url } from "../services/getEnvVar";
 import { useAuth } from "../hooks/useAuth";
 
 type User = UserType & {
+  _id: string;
   profile_pic: string;
 };
 type FriendRequest = {
-  id: string;
-  receiver: string;
-  sender: string;
+  _id: string;
+  recipient: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    profile_pic: string;
+  };
+  sender: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    profile_pic: string;
+  };
   action: string;
 };
 
@@ -63,11 +74,14 @@ function Friends() {
             },
           }
         );
+
         setFriendRequestSent(response.data);
       } catch (error) {
         console.log(error);
       }
     };
+    console.log(friendRequestReceived);
+    console.log(friendRequestSent);
 
     fetchUsers();
     fetchFriendRequestReceived();
@@ -85,7 +99,14 @@ function Friends() {
       </div>
       <div className="p-4">
         <p className="font-bold text-xl my-4">Friend Request Sent</p>
-        <FriendRequestList friendRequests={friendRequestSent} />
+        <ul>
+          {friendRequestSent.map((friendRequest) => (
+            <li key={friendRequest._id}>
+              {friendRequest.recipient.firstName}{" "}
+              {friendRequest.recipient.lastName}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

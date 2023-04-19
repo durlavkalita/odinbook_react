@@ -1,5 +1,7 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { env_api_url } from "../../services/getEnvVar";
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
@@ -8,10 +10,21 @@ function RegistrationForm() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log(firstName, lastName);
-    navigate("/");
+    const credentials = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+    try {
+      const response = await axios.post(`${env_api_url}/register`, credentials);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/login");
   };
 
   return (

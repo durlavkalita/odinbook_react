@@ -1,9 +1,19 @@
 import React from "react";
 
 type FriendRequest = {
-  id: string;
-  receiver: string;
-  sender: string;
+  _id: string;
+  recipient: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    profile_pic: string;
+  };
+  sender: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    profile_pic: string;
+  };
   action: string;
 };
 
@@ -16,8 +26,8 @@ function FriendRequestList(props: FriendRequestListProps) {
   return (
     <ul>
       {friendRequests.map((friendRequest) => (
-        <li key={friendRequest.id}>
-          {friendRequest.receiver} - {friendRequest.sender}
+        <li key={friendRequest._id}>
+          {friendRequest.sender.firstName} {friendRequest.sender.lastName}
         </li>
       ))}
     </ul>
