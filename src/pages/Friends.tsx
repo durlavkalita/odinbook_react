@@ -80,8 +80,6 @@ function Friends() {
         console.log(error);
       }
     };
-    console.log(friendRequestReceived);
-    console.log(friendRequestSent);
 
     fetchUsers();
     fetchFriendRequestReceived();
@@ -102,8 +100,22 @@ function Friends() {
         <ul>
           {friendRequestSent.map((friendRequest) => (
             <li key={friendRequest._id}>
-              {friendRequest.recipient.firstName}{" "}
-              {friendRequest.recipient.lastName}
+              <div className="flex items-center space-x-4 p-4">
+                <div className="flex-shrink-0">
+                  <img
+                    className="h-8 w-8 rounded-full"
+                    src={friendRequest.recipient.firstName}
+                    alt={friendRequest.recipient.firstName}
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-900 truncate">
+                    {friendRequest.recipient.firstName}{" "}
+                    {friendRequest.recipient.firstName}
+                  </p>
+                </div>
+                <div></div>
+              </div>
             </li>
           ))}
         </ul>

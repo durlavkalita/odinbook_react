@@ -1,4 +1,5 @@
 import React from "react";
+import FriendRequestReceived from "./FriendRequestReceived";
 
 type FriendRequest = {
   _id: string;
@@ -23,12 +24,14 @@ interface FriendRequestListProps {
 
 function FriendRequestList(props: FriendRequestListProps) {
   const { friendRequests } = props;
+
   return (
     <ul>
       {friendRequests.map((friendRequest) => (
-        <li key={friendRequest._id}>
-          {friendRequest.sender.firstName} {friendRequest.sender.lastName}
-        </li>
+        <FriendRequestReceived
+          key={friendRequest._id}
+          {...friendRequest.sender}
+        ></FriendRequestReceived>
       ))}
     </ul>
   );

@@ -38,45 +38,83 @@ function LoginForm() {
     navigate("/");
   };
 
+  const handleTestUser = async () => {
+    try {
+      const response = await loginService({
+        email: "john@test.com",
+        password: "password",
+      });
+
+      if (response.status == 200) {
+        const token = response.data.token;
+        const user = response.data.user;
+        const tokenExpiryDuration = 86400000;
+        const expiryTime = new Date().getTime() + tokenExpiryDuration;
+        dispatch({ type: "LOGIN_SUCCESS", payload: { token, user } });
+        window.localStorage.setItem("odinbook_user", JSON.stringify(user));
+        window.localStorage.setItem("odinbook_token", token);
+        window.localStorage.setItem(
+          "odinbook_expiryTime",
+          expiryTime.toString()
+        );
+      } else {
+        dispatch({ type: "LOGIN_FAILURE", payload: "error" });
+      }
+    } catch (error) {
+      dispatch({ type: "LOGIN_FAILURE", payload: "error" });
+    }
+    navigate("/");
+  };
+
   return (
-    <form onSubmit={handleLogin} className="max-w-md mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Login</h1>
-      <div className="mb-4">
-        <label className="block mb-2 font-bold text-gray-700" htmlFor="email">
-          Email:
-        </label>
-        <input
-          type="email"
-          id="email"
-          className="w-full border-gray-300 border-solid border-2 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block mb-2 font-bold text-gray-700"
-          htmlFor="password"
-        >
-          Password:
-        </label>
-        <input
-          type="password"
-          id="password"
-          className="w-full border-gray-300 border-solid border-2 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      <div className="flex justify-center">
+    <>
+      <form onSubmit={handleLogin} className="max-w-md mx-auto">
+        <h1 className="text-3xl font-bold mb-4">Login</h1>
+        <div className="mb-4">
+          <label className="block mb-2 font-bold text-gray-700" htmlFor="email">
+            Email:
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="w-full border-gray-300 border-solid border-2 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            className="block mb-2 font-bold text-gray-700"
+            htmlFor="password"
+          >
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="w-full border-gray-300 border-solid border-2 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        <div className="flex justify-center max-w-md mx-auto">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+      <div className="flex justify-center max-w-md mx-auto my-4">
         <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={handleTestUser}
+          className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          Login
+          Try it out as Test User
         </button>
       </div>
-    </form>
+    </>
   );
 }
 
