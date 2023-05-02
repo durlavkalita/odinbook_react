@@ -40,11 +40,14 @@ function Friends() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`${env_api_url}/api/users`, {
-          headers: {
-            Authorization: `Bearer ${state.token}`,
-          },
-        });
+        const response = await axios.get(
+          `${env_api_url}/api/users/find-people`,
+          {
+            headers: {
+              Authorization: `Bearer ${state.token}`,
+            },
+          }
+        );
         setUsers(response.data);
       } catch (error) {
         console.log(error);
@@ -88,7 +91,7 @@ function Friends() {
   return (
     <div className="grid grid-cols-3 gap-4">
       <div className="p-4">
-        <p className="font-bold text-xl my-4">All Users</p>
+        <p className="font-bold text-xl my-4">Find People</p>
         <UsersList users={users} />
       </div>
       <div className="p-4">
@@ -111,7 +114,7 @@ function Friends() {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate">
                     {friendRequest.recipient.firstName}{" "}
-                    {friendRequest.recipient.firstName}
+                    {friendRequest.recipient.lastName}
                   </p>
                 </div>
                 <div></div>

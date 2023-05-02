@@ -41,7 +41,7 @@ function LoginForm() {
   const handleTestUser = async () => {
     try {
       const response = await loginService({
-        email: "john@test.com",
+        email: "test@test.com",
         password: "password",
       });
 
