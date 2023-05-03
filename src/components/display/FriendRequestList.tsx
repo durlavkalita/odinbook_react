@@ -30,7 +30,7 @@ function FriendRequestList(props: FriendRequestListProps) {
       {friendRequests.map((friendRequest) => (
         <FriendRequestReceived
           key={friendRequest._id}
-          {...friendRequest.sender}
+          {...friendRequest}
         ></FriendRequestReceived>
       ))}
     </ul>

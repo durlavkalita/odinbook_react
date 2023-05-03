@@ -38,7 +38,7 @@ function Friends() {
   const { state } = useAuth();
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchFindPeople = async () => {
       try {
         const response = await axios.get(
           `${env_api_url}/api/users/find-people`,
@@ -84,7 +84,7 @@ function Friends() {
       }
     };
 
-    fetchUsers();
+    fetchFindPeople();
     fetchFriendRequestReceived();
     fetchFriendRequestSent();
   }, []);
