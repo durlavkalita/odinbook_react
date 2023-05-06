@@ -22,8 +22,22 @@ const Router = () => {
         />
         <Route path="/register" Component={RegistrationForm}></Route>
         <Route path="/login" Component={LoginForm}></Route>
-        <Route path="/profile" Component={Profile} />
-        <Route path="/friends" Component={Friends} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile></Profile>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/friends"
+          element={
+            <ProtectedRoute>
+              <Friends></Friends>
+            </ProtectedRoute>
+          }
+        />
         {/* <Route component={NotFound} /> */}
       </Routes>
     </BrowserRouter>

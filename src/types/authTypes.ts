@@ -17,8 +17,14 @@ export interface AuthContextType {
   dispatch: React.Dispatch<AuthAction>;
 }
 
+const token = localStorage.getItem("odinbook_token");
+const expiryTime = localStorage.getItem("odinbook_expiryTime");
+var isAuthenticated = false;
+if (token && expiryTime && new Date().getTime() < parseInt(expiryTime)) {
+  isAuthenticated = true;
+}
 export const initialState: AuthState = {
-  isAuthenticated: localStorage.getItem("odinbook_token") ? true : false,
+  isAuthenticated: isAuthenticated,
   token: localStorage.getItem("odinbook_token") || null,
   user: localStorage.getItem("odinbook_user")
     ? JSON.parse(localStorage.getItem("odinbook_user")!)
