@@ -65,7 +65,7 @@ const Profile = () => {
   return (
     <div className="max-w-5xl mx-auto px-4">
       <div className="bg-white rounded-lg shadow-md mb-8 p-8">
-        <div className="flex flex-col sm:flex-row items-center">
+        <div className="flex flex-col sm:flex-row items-center my-4">
           {user?.profile_pic ? (
             <img
               className="w-32 h-32 rounded-full object-cover mr-8 mb-4 sm:mb-0 border-2 border"
@@ -95,7 +95,7 @@ const Profile = () => {
             <h2 className="font-bold text-xl mb-1">
               {user?.firstName} {user?.lastName}
             </h2>
-            <p className="text-gray-700">@johndoe</p>
+            <p className="text-gray-700">{user?.email}</p>
           </div>
         </div>
         <div>

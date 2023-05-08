@@ -3,4 +3,5 @@ export type UserType = {
   firstName: string;
   lastName: string;
   email: string;
+  profile_pic: string;
 };

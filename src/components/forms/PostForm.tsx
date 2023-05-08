@@ -28,7 +28,10 @@ function PostForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border rounded-lg mb-4">
+    <form
+      onSubmit={handleSubmit}
+      className="p-4 border rounded-lg my-4 bg-blue-50"
+    >
       <h2 className="text-lg font-medium mb-2">Create Post</h2>
       <textarea
         value={content}

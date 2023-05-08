@@ -48,7 +48,7 @@ const PostDisplay = ({ post }: Props) => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +57,12 @@ const PostDisplay = ({ post }: Props) => {
     <div className="border border-gray-300 rounded-md p-4 mb-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
-          <div className="w-10 h-10 rounded-full mr-2 bg-gray-400"></div>
+          {/* <div className="w-10 h-10 rounded-full mr-2 bg-gray-400"></div> */}
+          <img
+            className="h-8 w-8 rounded-full mr-2"
+            src={post.author.profile_pic}
+            alt={post.author.firstName}
+          />
           <div>
             <div className="font-bold text-md">
               {post.author.firstName + " " + post.author.lastName}
@@ -69,11 +74,11 @@ const PostDisplay = ({ post }: Props) => {
         </div>
       </div>
       <div className="mb-4">{post.content}</div>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 bg-blue-50">
         <button
           onClick={handleLike}
-          className={`flex items-center rounded-md justify-center ${
-            isLiked ? "bg-blue-300" : ""
+          className={`flex items-center rounded-md justify-center border-2  hover:bg-blue-300${
+            isLiked ? "bg-green-300" : ""
           } `}
         >
           <span className="p-1">
@@ -83,22 +88,29 @@ const PostDisplay = ({ post }: Props) => {
 
         <button
           onClick={handleShowComments}
-          className="flex items-center justify-center"
+          className="flex items-center justify-center border-2 hover:bg-blue-300"
         >
           <span className="text-gray-500">Comments</span>
         </button>
-        <div className="flex items-center justify-center">
+
+        <div className="flex items-center justify-center border-2 hover:bg-blue-300">
           <span className="text-gray-500">Share</span>
         </div>
       </div>
       <div className="py-4">
         <CommentForm onSubmit={handleComment}></CommentForm>
 
-        {showComments
-          ? post.comments.map((comment) => (
+        {showComments ? (
+          post.comments.length > 0 ? (
+            post.comments.map((comment) => (
               <CommentDisplay key={comment._id} comment={comment} />
             ))
-          : ""}
+          ) : (
+            <p className="my-2">No comments yet...</p>
+          )
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
