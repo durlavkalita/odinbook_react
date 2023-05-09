@@ -103,11 +103,11 @@ function Friends() {
         <ul>
           {friendRequestSent.map((friendRequest) => (
             <li key={friendRequest._id}>
-              <div className="flex items-center space-x-4 p-4">
+              <div className="flex items-center space-x-4 p-4 bg-blue-50">
                 <div className="flex-shrink-0">
                   <img
                     className="h-8 w-8 rounded-full"
-                    src={friendRequest.recipient.firstName}
+                    src={friendRequest.recipient.profile_pic}
                     alt={friendRequest.recipient.firstName}
                   />
                 </div>

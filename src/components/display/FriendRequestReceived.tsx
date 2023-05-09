@@ -1,6 +1,7 @@
 import React from "react";
 import { env_api_url } from "../../services/getEnvVar";
 import { useAuth } from "../../hooks/useAuth";
+import axios from "axios";
 
 type FriendRequest = {
   _id: string;
@@ -21,18 +22,26 @@ type FriendRequest = {
 function FriendRequestReceived(friendRequest: FriendRequest) {
   const { state } = useAuth();
   const handleFriendRequestResponse = async (friendRequestResponse: string) => {
+    const payload = {
+      action: friendRequestResponse,
+    };
     try {
-      const response = await fetch(
+      // const response = await fetch(
+      //   `${env_api_url}/api/friend-requests/${friendRequest._id}`,
+      //   {
+      //     method: "PATCH",
+      //     headers: {
+      //       Authorization: `Bearer ${state.token}`,
+      //     },
+      //     body: JSON.stringify(payload),
+      //   }
+      // );
+      const response = axios.patch(
         `${env_api_url}/api/friend-requests/${friendRequest._id}`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${state.token}`,
-          },
-          body: JSON.stringify({ action: friendRequestResponse }),
-        }
+        payload,
+        { headers: { Authorization: `Bearer ${state.token}` } }
       );
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +51,7 @@ function FriendRequestReceived(friendRequest: FriendRequest) {
       <div className="flex-shrink-0">
         <img
           className="h-8 w-8 rounded-full"
-          src={friendRequest.sender.firstName}
+          src={friendRequest.sender.profile_pic}
           alt={friendRequest.sender.firstName}
         />
       </div>
