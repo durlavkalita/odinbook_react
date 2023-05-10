@@ -12,7 +12,8 @@ interface Props {
 
 const PostDisplay = ({ post }: Props) => {
   const { state } = useAuth();
-  const isLiked = post.liked_by.some((item) => item._id === state.user?.id);
+  const isLiked = post.liked_by.some((item) => item._id == state.user?.id);
+  console.log(isLiked);
 
   const [likedByUser, setLikedByUser] = useState(isLiked);
   const [showComments, setShowComments] = useState(false);
@@ -77,8 +78,8 @@ const PostDisplay = ({ post }: Props) => {
       <div className="grid grid-cols-3 bg-blue-50">
         <button
           onClick={handleLike}
-          className={`flex items-center rounded-md justify-center border-2  hover:bg-blue-300${
-            isLiked ? "bg-green-300" : ""
+          className={`flex items-center rounded-md justify-center border-2  hover:bg-blue-300 ${
+            likedByUser ? "text-blue-800" : ""
           } `}
         >
           <span className="p-1">
