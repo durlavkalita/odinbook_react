@@ -28,7 +28,7 @@ function RegistrationForm() {
   };
 
   return (
-    <div>
+    <div className="py-8 px-4">
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <h1 className="text-3xl font-bold mb-4">Register</h1>
         <div className="mb-4">
@@ -88,10 +88,10 @@ function RegistrationForm() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center max-w-md mx-auto">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Register
           </button>

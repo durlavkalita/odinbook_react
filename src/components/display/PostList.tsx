@@ -6,7 +6,7 @@ interface Props {
 }
 const PostList = ({ posts }: Props) => {
   return (
-    <div className="border rounded-lg p-4">
+    <div>
       {posts.map((post) => (
         <PostDisplay key={post._id} post={post}></PostDisplay>
       ))}
