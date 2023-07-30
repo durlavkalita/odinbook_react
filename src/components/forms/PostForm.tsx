@@ -3,7 +3,19 @@ import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
 import { env_api_url } from "../../services/getEnvVar";
 import { useNavigate } from "react-router-dom";
-function PostForm() {
+import { UserType } from "../../types/userTypes";
+interface Post {
+  _id: number;
+  author: UserType;
+  content: string;
+  created_at: Date;
+  liked_by: { _id: string }[];
+}
+interface Props {
+  onPostSubmit: (post: Post) => void;
+}
+
+function PostForm({ onPostSubmit }: Props) {
   const [content, setContent] = useState("");
   const { state } = useAuth();
   const navigate = useNavigate();
@@ -19,8 +31,9 @@ function PostForm() {
           },
         }
       );
-      // console.log(response);
+      console.log(response);
       setContent("");
+      onPostSubmit(response.data);
     } catch (error) {
       console.error(error);
     }

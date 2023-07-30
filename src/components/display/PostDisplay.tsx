@@ -13,7 +13,6 @@ interface Props {
 const PostDisplay = ({ post }: Props) => {
   const { state } = useAuth();
   const isLiked = post.liked_by.some((item) => item._id == state.user?.id);
-  console.log(isLiked);
 
   const [likedByUser, setLikedByUser] = useState(isLiked);
   const [showComments, setShowComments] = useState(false);
