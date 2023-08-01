@@ -35,6 +35,7 @@ function Friends() {
   const [friendRequestSent, setFriendRequestSent] = useState<FriendRequest[]>(
     []
   );
+  const [currentListOption, setCurrentListOption] = useState("find_people");
   const { state } = useAuth();
 
   useEffect(() => {
@@ -88,17 +89,45 @@ function Friends() {
     fetchFriendRequestReceived();
     fetchFriendRequestSent();
   }, []);
+
+  const handleOptionChange = (event: { target: { value: any } }) => {
+    setCurrentListOption(event.target.value);
+  };
+
   return (
-    <div className="grid grid-cols-3 gap-4">
-      <div className="p-4">
+    <div className="flex flex-col justify-center items-center">
+      <div className="w-full mx-auto p-4">
+        <select
+          name="listOptions"
+          id="listOptions"
+          onChange={handleOptionChange}
+          className="border w-full py-1 px-2 bg-white"
+        >
+          <option value="find_people">Find People</option>
+          <option value="request_received">Friend Request Received</option>
+          <option value="request_sent">Friend Request Sent</option>
+        </select>
+      </div>
+      {/* Find new people */}
+      <div
+        className={`p-4 ${currentListOption == "find_people" ? "" : "hidden"}`}
+      >
         <p className="font-bold text-xl my-4">Find People</p>
         <UsersList users={users} />
       </div>
-      <div className="p-4">
+      {/* friend request received list */}
+      <div
+        className={`p-4 ${
+          currentListOption == "request_received" ? "" : "hidden"
+        }`}
+      >
         <p className="font-bold text-xl my-4">Friend Request Received</p>
         <FriendRequestList friendRequests={friendRequestReceived} />
       </div>
-      <div className="p-4">
+      {/* friend request sent list */}
+      <div
+        className={`p-4 ${currentListOption == "request_sent" ? "" : "hidden"}`}
+      >
         <p className="font-bold text-xl my-4">Friend Request Sent</p>
         <ul>
           {friendRequestSent.map((friendRequest) => (

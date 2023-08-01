@@ -98,20 +98,21 @@ const Profile = () => {
             <p className="text-gray-700">{user?.email}</p>
           </div>
         </div>
-        <div>
+        <div className="flex items-center justify-center">
           {showUpdateDPForm ? (
-            <div className="flex">
-              <form onSubmit={handleUpdateDP}>
+            <div>
+              <form onSubmit={handleUpdateDP} className="flex">
                 <input
+                  className="border mx-2 px-2"
                   type="text"
-                  placeholder="add picture url"
+                  placeholder="Add picture url"
                   value={newDP}
                   onChange={(e) => setNewDP(e.target.value)}
                 />
                 <Button>Submit</Button>
               </form>
               <Button
-                className="mx-2"
+                className="mx-2 my-2 w-full bg-red-400"
                 onClick={() => setShowUpdateDPForm(!showUpdateDPForm)}
               >
                 Cancel
