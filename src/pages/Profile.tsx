@@ -63,7 +63,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4">
+    <div className="container mx-auto px-4 md:px-32 lg:px-48">
       <div className="bg-white rounded-lg shadow-md mb-8 p-8">
         <div className="flex flex-col sm:flex-row items-center my-4">
           {user?.profile_pic ? (
@@ -112,7 +112,7 @@ const Profile = () => {
                 <Button>Submit</Button>
               </form>
               <Button
-                className="mx-2 my-2 w-full bg-red-400"
+                className="mx-2 my-2 w-full bg-red-400 hover:bg-red-700"
                 onClick={() => setShowUpdateDPForm(!showUpdateDPForm)}
               >
                 Cancel

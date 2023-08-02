@@ -95,7 +95,7 @@ function Friends() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="mx-auto px-4 md:px-32 lg:px-48 flex flex-col justify-center items-center">
       <div className="w-full mx-auto p-4">
         <select
           name="listOptions"
@@ -109,25 +109,19 @@ function Friends() {
         </select>
       </div>
       {/* Find new people */}
-      <div
-        className={`p-4 ${currentListOption == "find_people" ? "" : "hidden"}`}
-      >
+      <div className={`${currentListOption == "find_people" ? "" : "hidden"}`}>
         <p className="font-bold text-xl my-4">Find People</p>
         <UsersList users={users} />
       </div>
       {/* friend request received list */}
       <div
-        className={`p-4 ${
-          currentListOption == "request_received" ? "" : "hidden"
-        }`}
+        className={`${currentListOption == "request_received" ? "" : "hidden"}`}
       >
         <p className="font-bold text-xl my-4">Friend Request Received</p>
         <FriendRequestList friendRequests={friendRequestReceived} />
       </div>
       {/* friend request sent list */}
-      <div
-        className={`p-4 ${currentListOption == "request_sent" ? "" : "hidden"}`}
-      >
+      <div className={`${currentListOption == "request_sent" ? "" : "hidden"}`}>
         <p className="font-bold text-xl my-4">Friend Request Sent</p>
         <ul>
           {friendRequestSent.map((friendRequest) => (
