@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import UsersList from "../components/display/UsersList";
-import FriendRequestList from "../components/display/FriendRequestList";
+import UsersList from "../components/display/people/UsersList";
+import FriendRequestList from "../components/display/people/FriendRequestList";
 import { UserType } from "../types/userTypes";
 import axios from "axios";
 import { env_api_url } from "../services/getEnvVar";
 import { useAuth } from "../hooks/useAuth";
+import UserModal from "../components/display/people/UserModal";
 
 type User = UserType & {
   _id: string;
@@ -27,7 +28,7 @@ type FriendRequest = {
   action: string;
 };
 
-function Friends() {
+function People() {
   const [users, setUsers] = useState<User[]>([]);
   const [friendRequestReceived, setFriendRequestReceived] = useState<
     FriendRequest[]
@@ -123,26 +124,35 @@ function Friends() {
       {/* friend request sent list */}
       <div className={`${currentListOption == "request_sent" ? "" : "hidden"}`}>
         <p className="font-bold text-xl my-4">Friend Request Sent</p>
-        <ul>
+        <ul className="divide-y divide-gray-300">
           {friendRequestSent.map((friendRequest) => (
-            <li key={friendRequest._id}>
-              <div className="flex items-center space-x-4 p-4 bg-blue-50">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src={friendRequest.recipient.profile_pic}
-                    alt={friendRequest.recipient.firstName}
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
-                    {friendRequest.recipient.firstName}{" "}
-                    {friendRequest.recipient.lastName}
-                  </p>
-                </div>
-                <div></div>
-              </div>
-            </li>
+            <UserModal
+              key={friendRequest._id}
+              firstName={friendRequest.recipient.firstName}
+              lastName={friendRequest.recipient.lastName}
+              profile_pic={friendRequest.recipient.profile_pic}
+              email="dummy"
+            >
+              <p className="ml-4">Pending</p>
+            </UserModal>
+            // <li key={friendRequest._id}>
+            //   <div className="flex items-center space-x-4 p-4 bg-blue-50">
+            //     <div className="flex-shrink-0">
+            //       <img
+            //         className="h-8 w-8 rounded-full"
+            //         src={friendRequest.recipient.profile_pic}
+            //         alt={friendRequest.recipient.firstName}
+            //       />
+            //     </div>
+            //     <div className="flex-1 min-w-0">
+            //       <p className="text-sm font-medium text-gray-900 truncate">
+            //         {friendRequest.recipient.firstName}{" "}
+            //         {friendRequest.recipient.lastName}
+            //       </p>
+            //     </div>
+            //     <div></div>
+            //   </div>
+            // </li>
           ))}
         </ul>
       </div>
@@ -150,4 +160,4 @@ function Friends() {
   );
 }
 
-export default Friends;
+export default People;

@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import Friends from "./pages/Friends";
+import People from "./pages/People";
 import RegistrationForm from "./components/forms/RegistrationForm";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/display/Navbar";
 import LoginForm from "./components/forms/LoginForm";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/utility/ProtectedRoute";
 
 const Router = () => {
   return (
@@ -34,7 +34,7 @@ const Router = () => {
           path="/friends"
           element={
             <ProtectedRoute>
-              <Friends></Friends>
+              <People></People>
             </ProtectedRoute>
           }
         />

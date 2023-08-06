@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { logoutService } from "../services/authServices";
+import { useAuth } from "../../hooks/useAuth";
+import { logoutService } from "../../services/authServices";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -62,7 +62,7 @@ const Navbar = () => {
               to="/friends"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             >
-              Friends
+              People
             </Link>
 
             <button

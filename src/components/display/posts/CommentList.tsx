@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { CommentType } from "../../types/commentTypes";
+import { CommentType } from "../../../types/commentTypes";
 import axios from "axios";
-import { env_api_url } from "../../services/getEnvVar";
+import { env_api_url } from "../../../services/getEnvVar";
 
 function CommentList(postId: number) {
   const [comments, setComments] = useState<CommentType[]>([]);
@@ -10,6 +10,7 @@ function CommentList(postId: number) {
     const fetchComments = async () => {
       try {
         const response = await axios.get(`${env_api_url}/api/posts/${postId}/`);
+        setComments(response.data);
       } catch (error) {}
     };
   });

@@ -4,9 +4,10 @@ import { PostType } from "../types/postTypes";
 import axios from "axios";
 import { env_api_url } from "../services/getEnvVar";
 import PostForm from "../components/forms/PostForm";
-import PostList from "../components/display/PostList";
-import LoadingSpinner from "../components/display/LoadingSpinner";
+import PostList from "../components/display/posts/PostList";
+import LoadingSpinner from "../components/utility/LoadingSpinner";
 import { UserType } from "../types/userTypes";
+
 interface Post {
   _id: number;
   author: UserType;
@@ -60,8 +61,10 @@ function Home() {
     <div className="container mx-auto px-4 md:px-32 lg:px-48">
       <div className="grid grid-cols-1 gap-4">
         <PostForm onPostSubmit={handlePostSubmit}></PostForm>
-        {isLoading && <LoadingSpinner size={32} color="red" />}
-        {!isLoading && <PostList posts={posts}></PostList>}
+        <div className="border">
+          {isLoading && <LoadingSpinner size={32} color="red" />}
+          {!isLoading && <PostList posts={posts}></PostList>}
+        </div>
       </div>
     </div>
   );

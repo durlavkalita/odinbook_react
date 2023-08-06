@@ -1,5 +1,5 @@
-import PostDisplay from "./PostDisplay";
-import { PostType } from "../../types/postTypes";
+import PostModal from "./PostModal";
+import { PostType } from "../../../types/postTypes";
 
 interface Props {
   posts: PostType[];
@@ -8,7 +8,7 @@ const PostList = ({ posts }: Props) => {
   return (
     <div>
       {posts.map((post) => (
-        <PostDisplay key={post._id} post={post}></PostDisplay>
+        <PostModal key={post._id} post={post}></PostModal>
       ))}
     </div>
   );

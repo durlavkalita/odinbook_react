@@ -4,7 +4,7 @@ import axios from "axios";
 import { env_api_url } from "../services/getEnvVar";
 import { useAuth } from "../hooks/useAuth";
 import { PostType } from "../types/postTypes";
-import PostDisplay from "../components/display/PostDisplay";
+import PostModal from "../components/display/posts/PostModal";
 import Button from "../components/utility/Button";
 
 type User = UserType & {
@@ -132,7 +132,7 @@ const Profile = () => {
       <div className="border rounded-lg p-4">
         <h2 className="text-lg font-medium mb-2">Posts</h2>
         {user?.postsWithComments.map((post) => (
-          <PostDisplay key={post._id} post={post}></PostDisplay>
+          <PostModal key={post._id} post={post}></PostModal>
         ))}
       </div>
     </div>
