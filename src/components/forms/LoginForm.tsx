@@ -64,6 +64,7 @@ function LoginForm() {
       dispatch({ type: "LOGIN_FAILURE", payload: "error" });
     }
     navigate("/");
+    console.log(import.meta.env.VITE_BACKEND_API_URL);
   };
 
   return (

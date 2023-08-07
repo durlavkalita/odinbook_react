@@ -1,6 +1,6 @@
 import axios from "axios";
-import { env_api_url } from "./getEnvVar";
 import { useNavigate } from "react-router-dom";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 export const loginService = async (credentials: {
   email: String;

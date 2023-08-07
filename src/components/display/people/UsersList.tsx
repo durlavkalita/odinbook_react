@@ -1,8 +1,8 @@
 import React from "react";
 import { UserType } from "../../../types/userTypes";
 import { useAuth } from "../../../hooks/useAuth";
-import { env_api_url } from "../../../services/getEnvVar";
 import UserModal from "./UserModal";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 type User = UserType & {
   _id: string;

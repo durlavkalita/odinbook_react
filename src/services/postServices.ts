@@ -1,5 +1,5 @@
 import axios from "axios";
-import { env_api_url } from "./getEnvVar";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 export const get_posts_list = async (token: string | null) => {
   const headers = {

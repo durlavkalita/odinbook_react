@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { UserType } from "../types/userTypes";
 import axios from "axios";
-import { env_api_url } from "../services/getEnvVar";
 import { useAuth } from "../hooks/useAuth";
 import { PostType } from "../types/postTypes";
 import PostModal from "../components/display/posts/PostModal";
 import Button from "../components/utility/Button";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 type User = UserType & {
   friends: string[];

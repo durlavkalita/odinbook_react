@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CommentType } from "../../../types/commentTypes";
 import axios from "axios";
-import { env_api_url } from "../../../services/getEnvVar";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 function CommentList(postId: number) {
   const [comments, setComments] = useState<CommentType[]>([]);

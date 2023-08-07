@@ -3,9 +3,9 @@ import UsersList from "../components/display/people/UsersList";
 import FriendRequestList from "../components/display/people/FriendRequestList";
 import { UserType } from "../types/userTypes";
 import axios from "axios";
-import { env_api_url } from "../services/getEnvVar";
 import { useAuth } from "../hooks/useAuth";
 import UserModal from "../components/display/people/UserModal";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 type User = UserType & {
   _id: string;

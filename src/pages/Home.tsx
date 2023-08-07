@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { PostType } from "../types/postTypes";
 import axios from "axios";
-import { env_api_url } from "../services/getEnvVar";
 import PostForm from "../components/forms/PostForm";
 import PostList from "../components/display/posts/PostList";
 import LoadingSpinner from "../components/utility/LoadingSpinner";
 import { UserType } from "../types/userTypes";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 interface Post {
   _id: number;

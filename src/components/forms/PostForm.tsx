@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
-import { env_api_url } from "../../services/getEnvVar";
 import { useNavigate } from "react-router-dom";
 import { UserType } from "../../types/userTypes";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
+
 interface Post {
   _id: number;
   author: UserType;

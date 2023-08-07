@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import CommentDisplay from "./CommentDisplay";
 import { PostType } from "../../../types/postTypes";
-import { CommentType } from "../../../types/commentTypes";
 import { useAuth } from "../../../hooks/useAuth";
 import axios from "axios";
-import { env_api_url } from "../../../services/getEnvVar";
 import CommentForm from "../../forms/CommentForm";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
+
 interface Props {
   post: PostType;
 }

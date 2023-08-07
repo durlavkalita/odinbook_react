@@ -1,8 +1,8 @@
 import React from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import axios from "axios";
-import { env_api_url } from "../../../services/getEnvVar";
 import UserModal from "./UserModal";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 type FriendRequest = {
   _id: string;

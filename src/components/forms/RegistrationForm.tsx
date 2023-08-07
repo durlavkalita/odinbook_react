@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { env_api_url } from "../../services/getEnvVar";
+const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
