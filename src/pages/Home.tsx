@@ -6,6 +6,13 @@ import PostForm from "../components/forms/PostForm";
 import PostList from "../components/display/posts/PostList";
 import LoadingSpinner from "../components/utility/LoadingSpinner";
 import { UserType } from "../types/userTypes";
+import {
+  FaAngleLeft,
+  FaAngleDoubleLeft,
+  FaAngleRight,
+  FaAngleDoubleRight,
+} from "react-icons/fa";
+
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 interface Post {
@@ -20,6 +27,9 @@ function Home() {
   const [posts, setPosts] = useState<PostType[]>([]);
   const { state, dispatch } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const perPage = 3;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -27,13 +37,17 @@ function Home() {
     const fetchPosts = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(`${env_api_url}/api/posts`, {
-          headers: {
-            Authorization: `Bearer ${state.token}`,
-          },
-          signal: controller.signal,
-        });
-        setPosts(response.data);
+        const response = await axios.get(
+          `${env_api_url}/api/posts?page=${currentPage}&perPage=${perPage}`,
+          {
+            headers: {
+              Authorization: `Bearer ${state.token}`,
+            },
+            signal: controller.signal,
+          }
+        );
+        setTotalPages(response.data.totalPages);
+        setPosts(response.data.posts);
       } catch (error) {
         console.error(error);
       } finally {
@@ -46,7 +60,27 @@ function Home() {
     return function () {
       controller.abort();
     };
-  }, []);
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleFirstPage = () => {
+    setCurrentPage(1);
+  };
+
+  const handleLastPage = () => {
+    setCurrentPage(totalPages);
+  };
 
   const handlePostSubmit = (newPost: Post) => {
     console.log(newPost);
@@ -58,12 +92,45 @@ function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-32 lg:px-48">
+    <div className="container mx-auto px-4 md:px-32 lg:px-48 mb-6">
       <div className="grid grid-cols-1 gap-4">
         <PostForm onPostSubmit={handlePostSubmit}></PostForm>
         <div className="border">
           {isLoading && <LoadingSpinner size={32} color="red" />}
-          {!isLoading && <PostList posts={posts}></PostList>}
+          {!isLoading && (
+            <div>
+              <PostList posts={posts}></PostList>
+              <div className="flex justify-between px-4 py-2 items-center">
+                <button
+                  className="flex-grow flex justify-center"
+                  onClick={handleFirstPage}
+                >
+                  <FaAngleDoubleLeft></FaAngleDoubleLeft>
+                </button>
+                <button
+                  className="flex-grow flex justify-center"
+                  onClick={handlePreviousPage}
+                >
+                  <FaAngleLeft></FaAngleLeft>
+                </button>
+                <span className="px-4">
+                  {currentPage} / {totalPages}
+                </span>
+                <button
+                  className="flex-grow flex justify-center"
+                  onClick={handleNextPage}
+                >
+                  <FaAngleRight></FaAngleRight>
+                </button>
+                <button
+                  className="flex-grow flex justify-center"
+                  onClick={handleLastPage}
+                >
+                  <FaAngleDoubleRight></FaAngleDoubleRight>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

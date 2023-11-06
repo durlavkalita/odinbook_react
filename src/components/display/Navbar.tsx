@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { logoutService } from "../../services/authServices";
 import { useState } from "react";
+import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
   const { state, dispatch } = useAuth();
@@ -28,20 +29,7 @@ const Navbar = () => {
           onClick={toggleMenu}
           className="text-white hover:text-gray-300 focus:outline-none"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
+          <FaBars></FaBars>
         </button>
       </div>
       {/* menu */}

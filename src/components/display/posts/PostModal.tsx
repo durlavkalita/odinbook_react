@@ -4,6 +4,8 @@ import { PostType } from "../../../types/postTypes";
 import { useAuth } from "../../../hooks/useAuth";
 import axios from "axios";
 import CommentForm from "../../forms/CommentForm";
+import { FaThumbsUp, FaComment, FaShare } from "react-icons/fa";
+
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 interface Props {
@@ -81,20 +83,25 @@ const PostModal = ({ post }: Props) => {
             likedByUser ? "text-blue-800" : ""
           } `}
         >
-          <span className="p-1">
-            {post.liked_by ? post.liked_by.length : 0} Like
-          </span>
+          <div className="flex items-center p-1">
+            {post.liked_by ? post.liked_by.length : 0}
+            <FaThumbsUp className="ml-2 mb-1"></FaThumbsUp>
+          </div>
         </button>
 
         <button
           onClick={handleShowComments}
           className="flex items-center justify-center border-2 hover:bg-blue-300"
         >
-          <span className="text-gray-500">Comments</span>
+          <span className="text-gray-500">
+            <FaComment></FaComment>
+          </span>
         </button>
 
         <div className="flex items-center justify-center border-2 hover:bg-blue-300">
-          <span className="text-gray-500">Share</span>
+          <span className="text-gray-500">
+            <FaShare></FaShare>
+          </span>
         </div>
       </div>
       <div className="py-4">
