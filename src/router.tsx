@@ -6,6 +6,7 @@ import RegistrationForm from "./components/forms/RegistrationForm";
 import Navbar from "./components/display/Navbar";
 import LoginForm from "./components/forms/LoginForm";
 import ProtectedRoute from "./components/utility/ProtectedRoute";
+import Explore from "./pages/Explore";
 
 const Router = () => {
   return (
@@ -20,6 +21,14 @@ const Router = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/explore"
+          element={
+            <ProtectedRoute>
+              <Explore></Explore>
+            </ProtectedRoute>
+          }
+        ></Route>
         <Route path="/register" Component={RegistrationForm}></Route>
         <Route path="/login" Component={LoginForm}></Route>
         <Route
@@ -31,7 +40,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/friends"
+          path="/people"
           element={
             <ProtectedRoute>
               <People></People>

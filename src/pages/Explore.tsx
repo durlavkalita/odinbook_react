@@ -14,7 +14,7 @@ import {
 
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
-function Home() {
+function Explore() {
   const [posts, setPosts] = useState<PostWithComments[]>([]);
   const { state, dispatch } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ function Home() {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `${env_api_url}/api/posts/timeline?page=${currentPage}&perPage=${perPage}`,
+          `${env_api_url}/api/posts?page=${currentPage}&perPage=${perPage}`,
           {
             headers: {
               Authorization: `Bearer ${state.token}`,
@@ -73,20 +73,10 @@ function Home() {
     setCurrentPage(totalPages);
   };
 
-  const handlePostSubmit = (newPost: Post) => {
-    console.log(newPost);
-    const newPostWithComments: PostWithComments = {
-      ...newPost, // Copy the properties from Post
-      comments: [], // Set comments to an empty array in Post
-    };
-    setPosts([newPostWithComments, ...posts]);
-  };
-
   return (
     <div className="container mx-auto px-4 md:px-32 lg:px-48 mb-6">
       <div className="grid grid-cols-1 gap-4">
-        <PostForm onPostSubmit={handlePostSubmit}></PostForm>
-        <div className="border">
+        <div className="mt-4">
           {isLoading && <LoadingSpinner size={32} color="red" />}
           {!isLoading && (
             <div>
@@ -128,4 +118,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Explore;

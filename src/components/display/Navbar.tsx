@@ -41,18 +41,30 @@ const Navbar = () => {
         {state.isAuthenticated ? (
           <div className="text-sm lg:flex-grow">
             <Link
-              to="/profile"
+              to="/"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             >
-              Profile
+              Home
             </Link>
             <Link
-              to="/friends"
+              to="/explore"
+              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+            >
+              Explore
+            </Link>
+            <Link
+              to="/people"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             >
               People
             </Link>
 
+            <Link
+              to="/profile"
+              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+            >
+              Profile
+            </Link>
             <button
               onClick={handleLogout}
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
