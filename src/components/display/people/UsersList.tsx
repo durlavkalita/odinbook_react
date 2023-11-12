@@ -1,13 +1,8 @@
 import React from "react";
-import { UserType } from "../../../types/userTypes";
+import { User } from "../../../types/userTypes";
 import { useAuth } from "../../../hooks/useAuth";
 import UserModal from "./UserModal";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
-
-type User = UserType & {
-  _id: string;
-  profile_pic: string;
-};
 
 interface Props {
   users: User[];

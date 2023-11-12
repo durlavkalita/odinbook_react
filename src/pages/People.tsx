@@ -1,32 +1,12 @@
 import { useState, useEffect } from "react";
 import UsersList from "../components/display/people/UsersList";
 import FriendRequestList from "../components/display/people/FriendRequestList";
-import { UserType } from "../types/userTypes";
+import { User } from "../types/userTypes";
 import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
 import UserModal from "../components/display/people/UserModal";
+import { FriendRequest } from "../types/friendRequestTypes";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
-
-type User = UserType & {
-  _id: string;
-  profile_pic: string;
-};
-type FriendRequest = {
-  _id: string;
-  recipient: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    profile_pic: string;
-  };
-  sender: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    profile_pic: string;
-  };
-  action: string;
-};
 
 function People() {
   const [users, setUsers] = useState<User[]>([]);

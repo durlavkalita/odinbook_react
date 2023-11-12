@@ -1,8 +1,8 @@
 import PostModal from "./PostModal";
-import { PostType } from "../../../types/postTypes";
+import { PostWithComments } from "../../../types/postTypes";
 
 interface Props {
-  posts: PostType[];
+  posts: PostWithComments[];
 }
 const PostList = ({ posts }: Props) => {
   return (

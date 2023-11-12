@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CommentDisplay from "./CommentDisplay";
-import { PostType } from "../../../types/postTypes";
+import { PostWithComments } from "../../../types/postTypes";
 import { useAuth } from "../../../hooks/useAuth";
 import axios from "axios";
 import CommentForm from "../../forms/CommentForm";
@@ -9,7 +9,7 @@ import { FaThumbsUp, FaComment, FaShare } from "react-icons/fa";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 interface Props {
-  post: PostType;
+  post: PostWithComments;
 }
 
 const PostModal = ({ post }: Props) => {

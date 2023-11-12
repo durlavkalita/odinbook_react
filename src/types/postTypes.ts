@@ -1,11 +1,14 @@
-import { UserType } from "./userTypes";
-import { CommentType } from "./commentTypes";
+import { User } from "./userTypes";
+import { Comment } from "./commentTypes";
 
-export type PostType = {
+export type Post = {
   _id: number;
-  author: UserType;
+  author: User;
   content: string;
   created_at: Date;
   liked_by: { _id: string }[];
-  comments: CommentType[];
+};
+
+export type PostWithComments = Post & {
+  comments: Comment[];
 };

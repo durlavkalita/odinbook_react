@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CommentType } from "../../../types/commentTypes";
 import axios from "axios";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;

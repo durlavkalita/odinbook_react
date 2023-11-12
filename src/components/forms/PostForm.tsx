@@ -1,17 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { UserType } from "../../types/userTypes";
+import { Post } from "../../types/postTypes";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
-interface Post {
-  _id: number;
-  author: UserType;
-  content: string;
-  created_at: Date;
-  liked_by: { _id: string }[];
-}
 interface Props {
   onPostSubmit: (post: Post) => void;
 }

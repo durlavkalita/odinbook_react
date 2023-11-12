@@ -1,10 +1,8 @@
-export type CommentType = {
+import { User } from "./userTypes";
+
+export type Comment = {
   _id: number;
-  author: {
-    _id: number;
-    firstName: string;
-    lastName: string;
-  };
+  author: User;
   content: string;
   post: string;
   created_at: Date;

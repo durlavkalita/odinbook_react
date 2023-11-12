@@ -1,14 +1,14 @@
-import { UserType } from "./userTypes";
+import { User } from "./userTypes";
 
 export interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
-  user: UserType | null;
+  user: User | null;
   error: string | null;
 }
 
 export type AuthAction =
-  | { type: "LOGIN_SUCCESS"; payload: { token: string; user: UserType } }
+  | { type: "LOGIN_SUCCESS"; payload: { token: string; user: User } }
   | { type: "LOGIN_FAILURE"; payload: string }
   | { type: "LOGOUT_SUCCESS" };
 

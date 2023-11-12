@@ -16,7 +16,7 @@ function UserModal({
   children,
 }: Props) {
   return (
-    <div className="flex items-center space-x-4 p-4">
+    <div className="flex items-center space-x-4 p-4 max-w-xl">
       <div className="flex-shrink-0">
         <img
           className="h-8 w-8 rounded-full"

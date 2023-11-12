@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { PostType } from "../types/postTypes";
+import { Post, PostWithComments } from "../types/postTypes";
 import axios from "axios";
 import PostForm from "../components/forms/PostForm";
 import PostList from "../components/display/posts/PostList";
 import LoadingSpinner from "../components/utility/LoadingSpinner";
-import { UserType } from "../types/userTypes";
 import {
   FaAngleLeft,
   FaAngleDoubleLeft,
@@ -15,16 +14,8 @@ import {
 
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
-interface Post {
-  _id: number;
-  author: UserType;
-  content: string;
-  created_at: Date;
-  liked_by: { _id: string }[];
-}
-
 function Home() {
-  const [posts, setPosts] = useState<PostType[]>([]);
+  const [posts, setPosts] = useState<PostWithComments[]>([]);
   const { state, dispatch } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,11 +75,11 @@ function Home() {
 
   const handlePostSubmit = (newPost: Post) => {
     console.log(newPost);
-    const convertedPost: PostType = {
+    const newPostWithComments: PostWithComments = {
       ...newPost, // Copy the properties from Post
-      comments: [], // Set comments to an empty array in PostType
+      comments: [], // Set comments to an empty array in Post
     };
-    setPosts([convertedPost, ...posts]);
+    setPosts([newPostWithComments, ...posts]);
   };
 
   return (

@@ -1,23 +1,18 @@
 import { useState, useEffect } from "react";
-import { UserType } from "../types/userTypes";
 import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
-import { PostType } from "../types/postTypes";
 import PostModal from "../components/display/posts/PostModal";
 import Button from "../components/utility/Button";
+import UserModal from "../components/display/people/UserModal";
+import { UserWithFriends } from "../types/userTypes";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
-
-type User = UserType & {
-  friends: string[];
-  profile_pic: string;
-  postsWithComments: PostType[];
-};
 
 const Profile = () => {
   const [showUpdateDPForm, setShowUpdateDPForm] = useState(false);
   const [newDP, setNewDP] = useState("");
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserWithFriends>();
   const { state } = useAuth();
+  const [showFriends, setShowFriends] = useState(false);
 
   const handleUpdateDP = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -129,11 +124,42 @@ const Profile = () => {
           )}
         </div>
       </div>
-      <div className="border rounded-lg p-4">
-        <h2 className="text-lg font-medium mb-2">Posts</h2>
-        {user?.postsWithComments.map((post) => (
-          <PostModal key={post._id} post={post}></PostModal>
-        ))}
+      <div className="border rounded-lg p-1">
+        <div className="flex justify-around items-center">
+          <div
+            className={`text-lg font-medium mb-2 flex-grow text-center cursor-pointer py-2 ${
+              showFriends ? "" : "bg-blue-100"
+            }`}
+            onClick={() => setShowFriends(false)}
+          >
+            Posts
+          </div>
+          <div
+            className={`text-lg font-medium mb-2 flex-grow text-center cursor-pointer py-2 ${
+              showFriends ? "bg-blue-100" : ""
+            }`}
+            onClick={() => setShowFriends(true)}
+          >
+            Friends
+          </div>
+        </div>
+        <div className={`flex flex-col ${showFriends ? "items-center" : ""}`}>
+          {showFriends
+            ? user?.friends.map((friend) => (
+                <UserModal
+                  key={friend.id}
+                  profile_pic={friend.profile_pic}
+                  firstName={friend.firstName}
+                  lastName={friend.lastName}
+                  email={friend.email}
+                >
+                  <button className="bg-blue-200 px-2">Add</button>
+                </UserModal>
+              ))
+            : user?.postsWithComments.map((post) => (
+                <PostModal key={post._id} post={post}></PostModal>
+              ))}
+        </div>
       </div>
     </div>
   );

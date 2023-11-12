@@ -2,24 +2,8 @@ import React from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import axios from "axios";
 import UserModal from "./UserModal";
+import { FriendRequest } from "../../../types/friendRequestTypes";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
-
-type FriendRequest = {
-  _id: string;
-  recipient: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    profile_pic: string;
-  };
-  sender: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    profile_pic: string;
-  };
-  action: string;
-};
 
 interface Props {
   friendRequests: FriendRequest[];
