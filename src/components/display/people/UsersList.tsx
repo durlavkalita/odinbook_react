@@ -2,6 +2,7 @@ import React from "react";
 import { User } from "../../../types/userTypes";
 import { useAuth } from "../../../hooks/useAuth";
 import UserModal from "./UserModal";
+import { FaUserPlus } from "react-icons/fa";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 interface Props {
@@ -32,6 +33,7 @@ function UsersList({ users }: Props) {
       {users.map((user) => (
         <UserModal
           key={user._id}
+          id={user._id}
           profile_pic={user.profile_pic}
           firstName={user.firstName}
           lastName={user.lastName}
@@ -41,9 +43,8 @@ function UsersList({ users }: Props) {
             onClick={() => {
               handleFriendRequest(user);
             }}
-            className="bg-blue-200 px-2"
           >
-            Add
+            <FaUserPlus size={25}></FaUserPlus>
           </button>
         </UserModal>
       ))}

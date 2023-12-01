@@ -74,7 +74,7 @@ function Explore() {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-32 lg:px-48 mb-6">
+    <div className="container mx-auto px-2 max-w-3xl mb-6">
       <div className="grid grid-cols-1 gap-4">
         <div className="mt-4">
           {isLoading && <LoadingSpinner size={32} color="red" />}

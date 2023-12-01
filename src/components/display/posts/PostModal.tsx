@@ -5,6 +5,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import axios from "axios";
 import CommentForm from "../../forms/CommentForm";
 import { FaThumbsUp, FaComment, FaShare } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
@@ -59,18 +60,29 @@ const PostModal = ({ post }: Props) => {
     <div className="border border-gray-300 rounded-md p-4 mb-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
-          {/* <div className="w-10 h-10 rounded-full mr-2 bg-gray-400"></div> */}
-          <img
-            className="h-8 w-8 rounded-full mr-2"
-            src={post.author.profile_pic}
-            alt={post.author.firstName}
-          />
+          <Link to={`/people/${post.author._id}`}>
+            <img
+              className="h-8 w-8 rounded-full mr-2"
+              src={post.author.profile_pic}
+              alt={post.author.firstName}
+            />
+          </Link>
           <div>
             <div className="font-bold text-md">
-              {post.author.firstName + " " + post.author.lastName}
+              <Link to={`/people/${post.author._id}`}>
+                {post.author.firstName + " " + post.author.lastName}
+              </Link>
             </div>
             <div className="text-gray-600 text-sm">
-              {post.created_at.toString()}
+              {new Date(post.created_at).toLocaleString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric",
+                timeZoneName: "short",
+              })}
             </div>
           </div>
         </div>

@@ -1,18 +1,21 @@
+import { UserWithPosts, UserWithFriends } from "../../../types/userTypes";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 import axios from "axios";
-import { useAuth } from "../hooks/useAuth";
-import PostModal from "../components/display/posts/PostModal";
-import Button from "../components/utility/Button";
-import UserModal from "../components/display/people/UserModal";
-import { UserWithFriends } from "../types/userTypes";
+import PostModal from "../posts/PostModal";
+import Button from "../../utility/Button";
+import UserModal from "./UserModal";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
-const Profile = () => {
+const SingleUser = () => {
+  let { userId } = useParams();
   const [showUpdateDPForm, setShowUpdateDPForm] = useState(false);
   const [newDP, setNewDP] = useState("");
   const [user, setUser] = useState<UserWithFriends>();
   const { state } = useAuth();
   const [showFriends, setShowFriends] = useState(false);
+  const currentUser = state.user?.id;
 
   const handleUpdateDP = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -41,14 +44,11 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(
-          `${env_api_url}/api/users/${state.user?.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${state.token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${env_api_url}/api/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        });
         setUser(response.data);
       } catch (error) {
         console.log(error);
@@ -93,36 +93,40 @@ const Profile = () => {
             <p className="text-gray-700">{user?.email}</p>
           </div>
         </div>
-        <div className="flex items-center justify-center">
-          {showUpdateDPForm ? (
-            <div>
-              <form onSubmit={handleUpdateDP} className="flex">
-                <input
-                  className="border mx-2 px-2"
-                  type="text"
-                  placeholder="Add picture url"
-                  value={newDP}
-                  onChange={(e) => setNewDP(e.target.value)}
-                />
-                <Button>Submit</Button>
-              </form>
+        {currentUser == userId ? (
+          <div className="flex items-center justify-center">
+            {showUpdateDPForm ? (
+              <div>
+                <form onSubmit={handleUpdateDP} className="flex">
+                  <input
+                    className="border mx-2 px-2"
+                    type="text"
+                    placeholder="Add picture url"
+                    value={newDP}
+                    onChange={(e) => setNewDP(e.target.value)}
+                  />
+                  <Button>Submit</Button>
+                </form>
+                <Button
+                  className="mx-2 my-2 w-full bg-red-400 hover:bg-red-700"
+                  onClick={() => setShowUpdateDPForm(!showUpdateDPForm)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            ) : (
               <Button
-                className="mx-2 my-2 w-full bg-red-400 hover:bg-red-700"
-                onClick={() => setShowUpdateDPForm(!showUpdateDPForm)}
+                onClick={() => {
+                  setShowUpdateDPForm(!showUpdateDPForm);
+                }}
               >
-                Cancel
+                Update Profile Photo
               </Button>
-            </div>
-          ) : (
-            <Button
-              onClick={() => {
-                setShowUpdateDPForm(!showUpdateDPForm);
-              }}
-            >
-              Update Profile Photo
-            </Button>
-          )}
-        </div>
+            )}
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <div className="border rounded-lg p-1">
         <div className="flex justify-around items-center">
@@ -166,4 +170,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default SingleUser;

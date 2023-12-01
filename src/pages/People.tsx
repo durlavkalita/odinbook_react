@@ -76,7 +76,7 @@ function People() {
   };
 
   return (
-    <div className="mx-auto px-4 md:px-32 lg:px-48 flex flex-col justify-center items-center">
+    <div className="mx-auto px-2 max-w-3xl flex flex-col justify-center items-center">
       <div className="w-full mx-auto p-4">
         <select
           name="listOptions"
@@ -108,31 +108,14 @@ function People() {
           {friendRequestSent.map((friendRequest) => (
             <UserModal
               key={friendRequest._id}
+              id={friendRequest.recipient.id}
               firstName={friendRequest.recipient.firstName}
               lastName={friendRequest.recipient.lastName}
               profile_pic={friendRequest.recipient.profile_pic}
-              email="dummy"
+              email={friendRequest.recipient.email}
             >
-              <p className="ml-4">Pending</p>
+              ...
             </UserModal>
-            // <li key={friendRequest._id}>
-            //   <div className="flex items-center space-x-4 p-4 bg-blue-50">
-            //     <div className="flex-shrink-0">
-            //       <img
-            //         className="h-8 w-8 rounded-full"
-            //         src={friendRequest.recipient.profile_pic}
-            //         alt={friendRequest.recipient.firstName}
-            //       />
-            //     </div>
-            //     <div className="flex-1 min-w-0">
-            //       <p className="text-sm font-medium text-gray-900 truncate">
-            //         {friendRequest.recipient.firstName}{" "}
-            //         {friendRequest.recipient.lastName}
-            //       </p>
-            //     </div>
-            //     <div></div>
-            //   </div>
-            // </li>
           ))}
         </ul>
       </div>

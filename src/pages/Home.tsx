@@ -83,7 +83,7 @@ function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-32 lg:px-48 mb-6">
+    <div className="container mx-auto max-w-3xl mb-6 px-2">
       <div className="grid grid-cols-1 gap-4">
         <PostForm onPostSubmit={handlePostSubmit}></PostForm>
         <div className="border">

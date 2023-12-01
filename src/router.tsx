@@ -7,6 +7,7 @@ import Navbar from "./components/display/Navbar";
 import LoginForm from "./components/forms/LoginForm";
 import ProtectedRoute from "./components/utility/ProtectedRoute";
 import Explore from "./pages/Explore";
+import SingleUser from "./components/display/people/SingleUser";
 
 const Router = () => {
   return (
@@ -46,7 +47,16 @@ const Router = () => {
               <People></People>
             </ProtectedRoute>
           }
-        />
+        ></Route>
+
+        <Route
+          path="/people/:userId"
+          element={
+            <ProtectedRoute>
+              <SingleUser></SingleUser>
+            </ProtectedRoute>
+          }
+        ></Route>
         {/* <Route component={NotFound} /> */}
       </Routes>
     </BrowserRouter>
