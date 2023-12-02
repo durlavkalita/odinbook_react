@@ -31,6 +31,7 @@ function FriendRequestList({ friendRequests }: Props) {
       {friendRequests.map((friendRequest) => (
         <UserModal
           key={friendRequest._id}
+          id={friendRequest.sender._id}
           profile_pic={friendRequest.sender.profile_pic}
           firstName={friendRequest.sender.firstName}
           lastName={friendRequest.sender.lastName}
