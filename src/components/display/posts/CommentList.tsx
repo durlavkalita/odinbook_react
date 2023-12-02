@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { CommentType } from "../../../types/commentTypes";
+import { Comment } from "../../../types/commentTypes";
 import axios from "axios";
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 function CommentList(postId: number) {
-  const [comments, setComments] = useState<CommentType[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
     const fetchComments = async () => {

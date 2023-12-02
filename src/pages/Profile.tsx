@@ -5,6 +5,7 @@ import PostModal from "../components/display/posts/PostModal";
 import Button from "../components/utility/Button";
 import UserModal from "../components/display/people/UserModal";
 import { UserWithFriends } from "../types/userTypes";
+
 const env_api_url = import.meta.env.VITE_BACKEND_API_URL;
 
 const Profile = () => {
@@ -147,14 +148,14 @@ const Profile = () => {
           {showFriends
             ? user?.friends.map((friend) => (
                 <UserModal
-                  key={friend.id}
-                  id={friend.id}
+                  key={friend._id}
+                  id={friend._id}
                   profile_pic={friend.profile_pic}
                   firstName={friend.firstName}
                   lastName={friend.lastName}
                   email={friend.email}
                 >
-                  <button className="bg-blue-200 px-2">Add</button>
+                  {""}
                 </UserModal>
               ))
             : user?.postsWithComments.map((post) => (

@@ -1,8 +1,8 @@
 import React from "react";
-import { CommentType } from "../../../types/commentTypes";
+import { Comment } from "../../../types/commentTypes";
 
 interface Props {
-  comment: CommentType;
+  comment: Comment;
 }
 
 const CommentDisplay = ({ comment }: Props) => {
